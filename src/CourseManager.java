@@ -6,16 +6,31 @@ public class CourseManager {
 
     public void addCourse(Course course) {
 
-        for (Course c : courses) {
-            if (c.code.equals(course.code)) {
-                System.out.println("Course already exists!");
-                return;
-            }
-        }
+    // Check required fields
+    if (course.code == null || course.code.isEmpty() ||
+        course.name == null || course.name.isEmpty()) {
 
-        courses.add(course);
-        System.out.println("Course added successfully!");
+        System.out.println("Error: Required fields cannot be empty!");
+        return;
     }
+
+    // Validate credit hours
+    if (course.creditHours <= 0) {
+        System.out.println("Error: Credit hours must be positive!");
+        return;
+    }
+
+    // Check duplicate course code
+    for (Course c : courses) {
+        if (c.code.equals(course.code)) {
+            System.out.println("Course already exists!");
+            return;
+        }
+    }
+
+    courses.add(course);
+    System.out.println("Course added successfully!");
+}
 
     public void displayAvailableCourses() {
 
